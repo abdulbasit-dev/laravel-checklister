@@ -18,6 +18,7 @@ class ChecklistController extends Controller
 
     public function store(StoreChecklistRequest $request, ChecklistGroup $checklistGroup)
     {
+        //create checklist through the relation ship hasMany
         $checklistGroup->checklists()->create($request->validated());
         return redirect()->route('home');
     }
