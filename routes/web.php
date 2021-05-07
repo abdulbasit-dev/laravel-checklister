@@ -23,5 +23,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'is_admin'], function () {
         Route::resource('pages', 'Admin\PageController');
+        Route::resource('checklist_groups', 'Admin\ChecklistGroupController');
+        Route::resource('checklist_groups.checklists', 'Admin\ChecklistController');
     });
 });
