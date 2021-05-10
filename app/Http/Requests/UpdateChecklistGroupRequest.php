@@ -27,7 +27,7 @@ class UpdateChecklistGroupRequest extends FormRequest
         return [
             'name' => [
                 'required',
-                Rule::unique('checklist_groups')->ignore($this->checklist_group->id)
+                Rule::unique('checklist_groups')->ignore($this->checklist_group)
             ]
         ];
     }
