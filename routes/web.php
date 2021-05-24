@@ -14,18 +14,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+  return view('welcome');
 });
 
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/welcome', 'PageController@welcome')->name('welcome');
-    Route::get('/consultation', 'PageController@consultation')->name('consultation');
-    Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'is_admin'], function () {
-        Route::resource('pages', 'Admin\PageController')->only(['edit', 'update']);
-        Route::resource('checklist_groups', 'Admin\ChecklistGroupController')->except(['index', 'show']);
-        Route::resource('checklist_groups.checklists', 'Admin\ChecklistController')->except(['index', 'show']);
-        Route::resource('checklists.tasks', 'Admin\TaskController')->except(['index', 'show', 'create']);
-    });
+  Route::get('/welcome', 'PageController@welcome')->name('welcome');
+  Route::get('/consultation', 'PageController@consultation')->name('consultation');
+
+  Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'is_admin'], function () {
+    Route::resource('pages', 'Admin\PageController')->only(['edit', 'update']);
+    Route::resource('checklist_groups', 'Admin\ChecklistGroupController')->except(['index', 'show']);
+    Route::resource('checklist_groups.checklists', 'Admin\ChecklistController')->except(['index', 'show']);
+    Route::resource('checklists.tasks', 'Admin\TaskController')->except(['index', 'show', 'create']);
+    Route::get('/users', 'Admin\UserController@index')->name('users.index');
+  });
 });
